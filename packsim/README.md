@@ -370,10 +370,10 @@ the result file.
 
 `examples/incast-2host.json` is a complete, runnable config to start from: two
 accelerators and one switch, carrying a single incast workload with a fixed
-seed. Its switch buffer, delays, ECN thresholds and NIC timing are round
-illustrative numbers, not a model of any particular switch or NIC. The command
-below runs from the repository root, like the ones above it, so the path it
-passes carries the `packsim/` prefix:
+seed. Its switch buffer, delays, ECN thresholds and NIC timing are schema
+defaults, round numbers or values derived from them, not a model of any
+particular switch or NIC. The command below runs from the repository root, like
+the ones above it, so the path it passes carries the `packsim/` prefix:
 
 ```sh
 ./_build/packsim --json_cfg=packsim/examples/incast-2host.json --output_file=result.json
