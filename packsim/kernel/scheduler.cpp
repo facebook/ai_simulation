@@ -9,12 +9,15 @@
 
 #include <cstdint>
 #include <memory>
+#include <stdexcept>
 #include <utility>
 
+#include <fmt/format.h>
 #include <folly/logging/xlog.h>
 #include <folly/system/HardwareConcurrency.h>
 #include <gflags/gflags.h>
 
+#include "packsim/kernel/duration.h"
 #include "packsim/kernel/time.h"
 // @oss-disable
 
@@ -94,6 +97,29 @@ void Scheduler::run() {
 
 void Scheduler::run(const Time time) {
   engine_->run(time.getFs());
+}
+
+void Scheduler::runUntil(const Time end) {
+  // While the engine runs, timeNow() is the calling event's context time;
+  // return before reading it, as run() does nothing then.
+  if (!isNotRunning()) {
+    return;
+  }
+  const Time now = timeNow();
+  if (end < now) {
+    throw std::invalid_argument(
+        fmt::format(
+            "runUntil end time {} fs is before the current time {} fs",
+            end.getFs(),
+            now.getFs()));
+  }
+  // PdesEngine::run(0) runs until no events are left, so a zero span must not
+  // reach it.
+  const Duration span = Duration::between(now, end);
+  if (span.isZero()) {
+    return;
+  }
+  engine_->run(span.getFs());
 }
 
 bool Scheduler::stop() {

@@ -26,5 +26,8 @@ on `main` has the detail.
   rejects a `Time`, and the reverse. `Scheduler::scheduleAfter` and
   `SimContext::schedule` also accept a `Duration` delay; their `Time` overloads
   stay.
+- `Scheduler::runUntil(Time)`, which runs the simulation up to a point in time.
+  `Scheduler::run(Time)` runs for a span, and its zero runs until no events are
+  left; `runUntil` at the current time runs nothing.
 
 [Unreleased]: https://github.com/facebook/ai_simulation/commits/main

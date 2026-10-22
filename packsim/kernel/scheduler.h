@@ -128,7 +128,35 @@ class Scheduler {
 
   void run();
 
+  /**
+   * Run for `time`, a span from `timeNow()` held in a `Time`, not up to `time`
+   * as a point. Zero runs until no events are left, like `run()`. To stop at
+   * a point, use `runUntil`.
+   *
+   * @param time  Span to run for.
+   *
+   * @throw std::runtime_error if the end reaches 2^64 - 1 fs, or the first
+   *        exception an event threw.
+   */
   void run(const Time time);
+
+  /**
+   * Run every event timed before `end`, then leave `timeNow()` at `end`
+   * whether or not events remain. An event timed exactly at `end` stays
+   * pending for the next run, and `end == timeNow()` runs nothing, unlike
+   * `run(Time(0))`.
+   *
+   * NOTE: A pause request, a breakpoint or `stop()` ends the run early and can
+   * leave `timeNow()` short of `end`. Has no effect while the engine is
+   * running.
+   *
+   * @param end  Absolute simulated time to stop at.
+   *
+   * @throw std::invalid_argument if `end` is before `timeNow()`.
+   * @throw std::runtime_error if `end` reaches 2^64 - 1 fs, or the first
+   *        exception an event threw.
+   */
+  void runUntil(Time end);
 
   bool stop();
 
