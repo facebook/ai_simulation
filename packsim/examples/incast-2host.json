@@ -1,0 +1,1420 @@
+{
+  "snapshotIntervalNs": -1,
+  "conditionalTraceIntervalsNs": {},
+  "random": {
+    "seed": 1234,
+    "useDeterministicSeed": true
+  },
+  "snapshotNodes": [],
+  "switchConfigMap": {
+    "RTSW": {
+      "bufs": [
+        {
+          "cellSizeBytes": 254,
+          "totalCells": 100000,
+          "headroomPoolCells": 1400,
+          "ports": {
+            "0": {
+              "port": 0,
+              "portRsvdCells": 0,
+              "portMaxSharedCells": 2147483647,
+              "xonHystCells": 17,
+              "pgs": [
+                {
+                  "priority": 0,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 0,
+                  "lossless": false,
+                  "pfc": false
+                },
+                {
+                  "priority": 1,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 100,
+                  "lossless": true,
+                  "pfc": true
+                },
+                {
+                  "priority": 2,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 100,
+                  "lossless": true,
+                  "pfc": true
+                },
+                {
+                  "priority": 3,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 100,
+                  "lossless": true,
+                  "pfc": true
+                },
+                {
+                  "priority": 4,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 100,
+                  "lossless": true,
+                  "pfc": true
+                },
+                {
+                  "priority": 5,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 100,
+                  "lossless": true,
+                  "pfc": true
+                },
+                {
+                  "priority": 6,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 100,
+                  "lossless": true,
+                  "pfc": true
+                },
+                {
+                  "priority": 7,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 100,
+                  "lossless": true,
+                  "pfc": true
+                }
+              ],
+              "queueCfg": [
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                },
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                },
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                },
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                },
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                },
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                },
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                },
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                }
+              ],
+              "queueScheduleCfg": 0,
+              "queueFilterCfg": {
+                "field": 1,
+                "fieldToQueue": {
+                  "56": 7,
+                  "48": 6,
+                  "40": 5,
+                  "32": 4,
+                  "24": 3,
+                  "16": 2,
+                  "8": 1,
+                  "0": 0
+                },
+                "fieldToColor": {},
+                "minQSizeThreshold": 30000,
+                "maxQSizeThreshold": 60000
+              },
+              "ucQueues": [
+                {
+                  "cos": 0,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                },
+                {
+                  "cos": 1,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                },
+                {
+                  "cos": 2,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                },
+                {
+                  "cos": 3,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                },
+                {
+                  "cos": 4,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                },
+                {
+                  "cos": 5,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                },
+                {
+                  "cos": 6,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                },
+                {
+                  "cos": 7,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                }
+              ],
+              "isIngrPort": true,
+              "isEgrPort": true
+            },
+            "1": {
+              "port": 1,
+              "portRsvdCells": 0,
+              "portMaxSharedCells": 2147483647,
+              "xonHystCells": 17,
+              "pgs": [
+                {
+                  "priority": 0,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 0,
+                  "lossless": false,
+                  "pfc": false
+                },
+                {
+                  "priority": 1,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 100,
+                  "lossless": true,
+                  "pfc": true
+                },
+                {
+                  "priority": 2,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 100,
+                  "lossless": true,
+                  "pfc": true
+                },
+                {
+                  "priority": 3,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 100,
+                  "lossless": true,
+                  "pfc": true
+                },
+                {
+                  "priority": 4,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 100,
+                  "lossless": true,
+                  "pfc": true
+                },
+                {
+                  "priority": 5,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 100,
+                  "lossless": true,
+                  "pfc": true
+                },
+                {
+                  "priority": 6,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 100,
+                  "lossless": true,
+                  "pfc": true
+                },
+                {
+                  "priority": 7,
+                  "rsvdCells": 0,
+                  "canUsePortRsvd": true,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "xonHystCells": 17,
+                  "maxHdrmCells": 100,
+                  "lossless": true,
+                  "pfc": true
+                }
+              ],
+              "queueCfg": [
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                },
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                },
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                },
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                },
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                },
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                },
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                },
+                {
+                  "wredEcnCfg": {
+                    "queueProfileCfg": 3,
+                    "minQSizeWRED": 5000,
+                    "maxQSizeWRED": 200000,
+                    "dropRateWRED": 0,
+                    "exp": 0,
+                    "averagingPeriod": 0,
+                    "minQSizeECN": 5000,
+                    "maxQSizeECN": 200000,
+                    "markRateECN": 1
+                  },
+                  "coloredWredEcnCfgs": {}
+                }
+              ],
+              "queueScheduleCfg": 0,
+              "queueFilterCfg": {
+                "field": 1,
+                "fieldToQueue": {
+                  "56": 7,
+                  "48": 6,
+                  "40": 5,
+                  "32": 4,
+                  "24": 3,
+                  "16": 2,
+                  "8": 1,
+                  "0": 0
+                },
+                "fieldToColor": {},
+                "minQSizeThreshold": 30000,
+                "maxQSizeThreshold": 60000
+              },
+              "ucQueues": [
+                {
+                  "cos": 0,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                },
+                {
+                  "cos": 1,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                },
+                {
+                  "cos": 2,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                },
+                {
+                  "cos": 3,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                },
+                {
+                  "cos": 4,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                },
+                {
+                  "cos": 5,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                },
+                {
+                  "cos": 6,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                },
+                {
+                  "cos": 7,
+                  "rsvdCells": 0,
+                  "dynamicSharing": true,
+                  "alpha": 0.25,
+                  "maxSharedCells": 2147483647,
+                  "resumeHystCells": 17
+                }
+              ],
+              "isIngrPort": true,
+              "isEgrPort": true
+            }
+          },
+          "_calcSharedBufferCells": 0,
+          "_calcSharedBufferCellsEgr": 0
+        }
+      ],
+      "portGroups": {
+        "downlinks": [
+          0,
+          1
+        ]
+      },
+      "egressBufs": [],
+      "pipelineDelayNs": 500,
+      "expDelayNs": 0,
+      "portToBufMap": {
+        "singleMap": {
+          "0": 0,
+          "1": 0
+        },
+        "pairMap": {}
+      },
+      "useIngress": true,
+      "useEgress": false,
+      "egressAdmissionCheckEnable": true,
+      "enableFatalOnDrop": false
+    }
+  },
+  "nicConfigMap": {
+    "default": {
+      "writeEff": 100,
+      "readGbps": 400,
+      "readLatencyNs": 100,
+      "maxQpDepth": -1,
+      "allowReachableRoutesOnly": true,
+      "speed": "200Gbps",
+      "mtu": 4200,
+      "ackCoalescingFactor": 2147483647,
+      "queueScheduleCfg": 3,
+      "txLatencyNs": 100,
+      "rxLatencyNs": 100,
+      "queueFilterCfg": {
+        "field": 1,
+        "fieldToQueue": {
+          "0": 0,
+          "8": 1,
+          "16": 2,
+          "24": 3,
+          "32": 4,
+          "40": 5,
+          "48": 6,
+          "56": 7
+        },
+        "fieldToColor": {},
+        "minQSizeThreshold": 30000,
+        "maxQSizeThreshold": 60000
+      },
+      "queueCfg": [
+        {
+          "wredEcnCfg": {
+            "queueProfileCfg": 3,
+            "minQSizeWRED": 5000,
+            "maxQSizeWRED": 200000,
+            "dropRateWRED": 100,
+            "exp": 0,
+            "averagingPeriod": 7,
+            "minQSizeECN": 5000,
+            "maxQSizeECN": 200000,
+            "markRateECN": 1
+          },
+          "coloredWredEcnCfgs": {}
+        },
+        {
+          "wredEcnCfg": {
+            "queueProfileCfg": 3,
+            "minQSizeWRED": 5000,
+            "maxQSizeWRED": 200000,
+            "dropRateWRED": 100,
+            "exp": 0,
+            "averagingPeriod": 7,
+            "minQSizeECN": 5000,
+            "maxQSizeECN": 200000,
+            "markRateECN": 1
+          },
+          "coloredWredEcnCfgs": {}
+        },
+        {
+          "wredEcnCfg": {
+            "queueProfileCfg": 3,
+            "minQSizeWRED": 5000,
+            "maxQSizeWRED": 200000,
+            "dropRateWRED": 100,
+            "exp": 0,
+            "averagingPeriod": 7,
+            "minQSizeECN": 5000,
+            "maxQSizeECN": 200000,
+            "markRateECN": 1
+          },
+          "coloredWredEcnCfgs": {}
+        },
+        {
+          "wredEcnCfg": {
+            "queueProfileCfg": 3,
+            "minQSizeWRED": 5000,
+            "maxQSizeWRED": 200000,
+            "dropRateWRED": 100,
+            "exp": 0,
+            "averagingPeriod": 7,
+            "minQSizeECN": 5000,
+            "maxQSizeECN": 200000,
+            "markRateECN": 1
+          },
+          "coloredWredEcnCfgs": {}
+        },
+        {
+          "wredEcnCfg": {
+            "queueProfileCfg": 3,
+            "minQSizeWRED": 5000,
+            "maxQSizeWRED": 200000,
+            "dropRateWRED": 100,
+            "exp": 0,
+            "averagingPeriod": 7,
+            "minQSizeECN": 5000,
+            "maxQSizeECN": 200000,
+            "markRateECN": 1
+          },
+          "coloredWredEcnCfgs": {}
+        },
+        {
+          "wredEcnCfg": {
+            "queueProfileCfg": 3,
+            "minQSizeWRED": 5000,
+            "maxQSizeWRED": 200000,
+            "dropRateWRED": 100,
+            "exp": 0,
+            "averagingPeriod": 7,
+            "minQSizeECN": 5000,
+            "maxQSizeECN": 200000,
+            "markRateECN": 1
+          },
+          "coloredWredEcnCfgs": {}
+        },
+        {
+          "wredEcnCfg": {
+            "queueProfileCfg": 3,
+            "minQSizeWRED": 5000,
+            "maxQSizeWRED": 200000,
+            "dropRateWRED": 100,
+            "exp": 0,
+            "averagingPeriod": 7,
+            "minQSizeECN": 5000,
+            "maxQSizeECN": 200000,
+            "markRateECN": 1
+          },
+          "coloredWredEcnCfgs": {}
+        },
+        {
+          "wredEcnCfg": {
+            "queueProfileCfg": 3,
+            "minQSizeWRED": 5000,
+            "maxQSizeWRED": 200000,
+            "dropRateWRED": 100,
+            "exp": 0,
+            "averagingPeriod": 7,
+            "minQSizeECN": 5000,
+            "maxQSizeECN": 200000,
+            "markRateECN": 1
+          },
+          "coloredWredEcnCfgs": {}
+        }
+      ],
+      "dcqcnCfg": {
+        "npCnpPrio": 1,
+        "rpDceTcpG": 1019,
+        "rpDceTcpRtt": 1,
+        "rpInitialAlpha": 1023,
+        "rpMinDecFac": 50,
+        "rpMinRate": 1.5,
+        "rpGd": 11,
+        "rpRateReduceMonitorPeriod": 4,
+        "rpClampTgtRate": false,
+        "rpClampTgtRateAti": true,
+        "rpTimerReset": 300,
+        "rpByteReset": 32767,
+        "rpThreshold": 1,
+        "rpAiRate": 1,
+        "rpHaiRate": 50,
+        "dcqcnEnable": false,
+        "byteCntEnable": false,
+        "rateLimiterBucketSize": 65536,
+        "rateLimiterRefreshPeriodNs": 1000
+      },
+      "pktDropCfg": {
+        "dropPktType": 0,
+        "numBurstDrops": 10,
+        "numBurstDropIntrvl": 1048576,
+        "randDropRange": 100
+      },
+      "outofOrderPktSupport": false,
+      "perCosBufferSize": [
+        262144,
+        262144,
+        262144,
+        262144,
+        262144,
+        262144,
+        262144,
+        262144
+      ],
+      "perCosXon": [
+        244836,
+        244836,
+        244836,
+        244836,
+        244836,
+        244836,
+        244836,
+        244836
+      ],
+      "perCosXoff": [
+        249036,
+        249036,
+        249036,
+        249036,
+        249036,
+        249036,
+        249036,
+        249036
+      ],
+      "ackCos": 7,
+      "dataCos": 1,
+      "transport": {
+        "roceV2": {
+          "congestionControl": {
+            "dummy": {}
+          },
+          "lossRecovery": {
+            "dummy": {}
+          }
+        }
+      },
+      "netDeviceSnapshotIntervalNs": -1,
+      "enableChromeTracing": false,
+      "nicSize": 1
+    }
+  },
+  "nic": {
+    "writeEff": 100,
+    "readGbps": 400,
+    "readLatencyNs": 100,
+    "maxQpDepth": -1,
+    "allowReachableRoutesOnly": true,
+    "speed": "200Gbps",
+    "mtu": 4200,
+    "ackCoalescingFactor": 2147483647,
+    "queueScheduleCfg": 3,
+    "txLatencyNs": 100,
+    "rxLatencyNs": 100,
+    "queueFilterCfg": {
+      "field": 1,
+      "fieldToQueue": {
+        "0": 0,
+        "8": 1,
+        "16": 2,
+        "24": 3,
+        "32": 4,
+        "40": 5,
+        "48": 6,
+        "56": 7
+      },
+      "fieldToColor": {},
+      "minQSizeThreshold": 30000,
+      "maxQSizeThreshold": 60000
+    },
+    "queueCfg": [
+      {
+        "wredEcnCfg": {
+          "queueProfileCfg": 3,
+          "minQSizeWRED": 5000,
+          "maxQSizeWRED": 200000,
+          "dropRateWRED": 100,
+          "exp": 0,
+          "averagingPeriod": 7,
+          "minQSizeECN": 5000,
+          "maxQSizeECN": 200000,
+          "markRateECN": 1
+        },
+        "coloredWredEcnCfgs": {}
+      },
+      {
+        "wredEcnCfg": {
+          "queueProfileCfg": 3,
+          "minQSizeWRED": 5000,
+          "maxQSizeWRED": 200000,
+          "dropRateWRED": 100,
+          "exp": 0,
+          "averagingPeriod": 7,
+          "minQSizeECN": 5000,
+          "maxQSizeECN": 200000,
+          "markRateECN": 1
+        },
+        "coloredWredEcnCfgs": {}
+      },
+      {
+        "wredEcnCfg": {
+          "queueProfileCfg": 3,
+          "minQSizeWRED": 5000,
+          "maxQSizeWRED": 200000,
+          "dropRateWRED": 100,
+          "exp": 0,
+          "averagingPeriod": 7,
+          "minQSizeECN": 5000,
+          "maxQSizeECN": 200000,
+          "markRateECN": 1
+        },
+        "coloredWredEcnCfgs": {}
+      },
+      {
+        "wredEcnCfg": {
+          "queueProfileCfg": 3,
+          "minQSizeWRED": 5000,
+          "maxQSizeWRED": 200000,
+          "dropRateWRED": 100,
+          "exp": 0,
+          "averagingPeriod": 7,
+          "minQSizeECN": 5000,
+          "maxQSizeECN": 200000,
+          "markRateECN": 1
+        },
+        "coloredWredEcnCfgs": {}
+      },
+      {
+        "wredEcnCfg": {
+          "queueProfileCfg": 3,
+          "minQSizeWRED": 5000,
+          "maxQSizeWRED": 200000,
+          "dropRateWRED": 100,
+          "exp": 0,
+          "averagingPeriod": 7,
+          "minQSizeECN": 5000,
+          "maxQSizeECN": 200000,
+          "markRateECN": 1
+        },
+        "coloredWredEcnCfgs": {}
+      },
+      {
+        "wredEcnCfg": {
+          "queueProfileCfg": 3,
+          "minQSizeWRED": 5000,
+          "maxQSizeWRED": 200000,
+          "dropRateWRED": 100,
+          "exp": 0,
+          "averagingPeriod": 7,
+          "minQSizeECN": 5000,
+          "maxQSizeECN": 200000,
+          "markRateECN": 1
+        },
+        "coloredWredEcnCfgs": {}
+      },
+      {
+        "wredEcnCfg": {
+          "queueProfileCfg": 3,
+          "minQSizeWRED": 5000,
+          "maxQSizeWRED": 200000,
+          "dropRateWRED": 100,
+          "exp": 0,
+          "averagingPeriod": 7,
+          "minQSizeECN": 5000,
+          "maxQSizeECN": 200000,
+          "markRateECN": 1
+        },
+        "coloredWredEcnCfgs": {}
+      },
+      {
+        "wredEcnCfg": {
+          "queueProfileCfg": 3,
+          "minQSizeWRED": 5000,
+          "maxQSizeWRED": 200000,
+          "dropRateWRED": 100,
+          "exp": 0,
+          "averagingPeriod": 7,
+          "minQSizeECN": 5000,
+          "maxQSizeECN": 200000,
+          "markRateECN": 1
+        },
+        "coloredWredEcnCfgs": {}
+      }
+    ],
+    "dcqcnCfg": {
+      "npCnpPrio": 1,
+      "rpDceTcpG": 1019,
+      "rpDceTcpRtt": 1,
+      "rpInitialAlpha": 1023,
+      "rpMinDecFac": 50,
+      "rpMinRate": 1.5,
+      "rpGd": 11,
+      "rpRateReduceMonitorPeriod": 4,
+      "rpClampTgtRate": false,
+      "rpClampTgtRateAti": true,
+      "rpTimerReset": 300,
+      "rpByteReset": 32767,
+      "rpThreshold": 1,
+      "rpAiRate": 1,
+      "rpHaiRate": 50,
+      "dcqcnEnable": false,
+      "byteCntEnable": false,
+      "rateLimiterBucketSize": 65536,
+      "rateLimiterRefreshPeriodNs": 1000
+    },
+    "pktDropCfg": {
+      "dropPktType": 0,
+      "numBurstDrops": 10,
+      "numBurstDropIntrvl": 1048576,
+      "randDropRange": 100
+    },
+    "outofOrderPktSupport": false,
+    "perCosBufferSize": [
+      262144,
+      262144,
+      262144,
+      262144,
+      262144,
+      262144,
+      262144,
+      262144
+    ],
+    "perCosXon": [
+      244836,
+      244836,
+      244836,
+      244836,
+      244836,
+      244836,
+      244836,
+      244836
+    ],
+    "perCosXoff": [
+      249036,
+      249036,
+      249036,
+      249036,
+      249036,
+      249036,
+      249036,
+      249036
+    ],
+    "ackCos": 7,
+    "dataCos": 1,
+    "transport": {
+      "roceV2": {
+        "congestionControl": {
+          "dummy": {}
+        },
+        "lossRecovery": {
+          "dummy": {}
+        }
+      }
+    },
+    "netDeviceSnapshotIntervalNs": -1,
+    "enableChromeTracing": false,
+    "nicSize": 1
+  },
+  "flex_topology": {
+    "nodes": {
+      "rtsw001.r001": {
+        "name": "rtsw001.r001",
+        "id": [
+          2,
+          0,
+          1,
+          1
+        ],
+        "lpmSpec": {
+          "prefixTable": {
+            "1.0.1.1.1.1": {
+              "links": [
+                0
+              ],
+              "tiebreak": {
+                "ecmp": {}
+              }
+            },
+            "1.0.1.2.1.1": {
+              "links": [
+                1
+              ],
+              "tiebreak": {
+                "ecmp": {}
+              }
+            }
+          },
+          "validPrefixLengths": [
+            6
+          ],
+          "defaultRoute": {
+            "links": [],
+            "tiebreak": {
+              "ecmp": {}
+            }
+          }
+        },
+        "type": 4,
+        "role": "RTSW",
+        "systemId": 0,
+        "endpointCfgs": [],
+        "nvDomain": 0
+      },
+      "accel001.r001": {
+        "name": "accel001.r001",
+        "id": [
+          1,
+          0,
+          1,
+          1,
+          0,
+          0
+        ],
+        "lpmSpec": {
+          "prefixTable": {},
+          "validPrefixLengths": [],
+          "defaultRoute": {
+            "links": [],
+            "tiebreak": {
+              "ecmp": {}
+            }
+          }
+        },
+        "type": 0,
+        "role": "ACCEL",
+        "systemId": 0,
+        "endpointCfgs": [
+          {
+            "nicConfig": "default",
+            "linkIds": [
+              0
+            ],
+            "nicIds": [
+              [
+                1,
+                0,
+                1,
+                1,
+                1,
+                0
+              ]
+            ],
+            "lpmSpec": {
+              "prefixTable": {},
+              "validPrefixLengths": [],
+              "defaultRoute": {
+                "links": [],
+                "tiebreak": {
+                  "ecmp": {}
+                }
+              }
+            },
+            "portIds": [],
+            "portIdx": 5
+          }
+        ],
+        "nvDomain": 1
+      },
+      "accel002.r001": {
+        "name": "accel002.r001",
+        "id": [
+          1,
+          0,
+          1,
+          2,
+          0,
+          0
+        ],
+        "lpmSpec": {
+          "prefixTable": {},
+          "validPrefixLengths": [],
+          "defaultRoute": {
+            "links": [],
+            "tiebreak": {
+              "ecmp": {}
+            }
+          }
+        },
+        "type": 0,
+        "role": "ACCEL",
+        "systemId": 0,
+        "endpointCfgs": [
+          {
+            "nicConfig": "default",
+            "linkIds": [
+              1
+            ],
+            "nicIds": [
+              [
+                1,
+                0,
+                1,
+                2,
+                1,
+                0
+              ]
+            ],
+            "lpmSpec": {
+              "prefixTable": {},
+              "validPrefixLengths": [],
+              "defaultRoute": {
+                "links": [],
+                "tiebreak": {
+                  "ecmp": {}
+                }
+              }
+            },
+            "portIds": [],
+            "portIdx": 5
+          }
+        ],
+        "nvDomain": 2
+      }
+    },
+    "links": {
+      "0": {
+        "linkId": 0,
+        "node1": "accel001.r001",
+        "node2": "rtsw001.r001",
+        "sourceAddress": [
+          1,
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        "destinationAddress": [
+          2,
+          0,
+          1,
+          1
+        ],
+        "node1PortGroup": "uplinks",
+        "node2PortGroup": "downlinks",
+        "speed": "200Gbps",
+        "status": 1,
+        "log10Ber": 1,
+        "linkFlapDelayNs": 0,
+        "delayConfig": {
+          "delayNs": 100,
+          "expDelayNs": 0
+        }
+      },
+      "1": {
+        "linkId": 1,
+        "node1": "accel002.r001",
+        "node2": "rtsw001.r001",
+        "sourceAddress": [
+          1,
+          0,
+          1,
+          2,
+          1,
+          1
+        ],
+        "destinationAddress": [
+          2,
+          0,
+          1,
+          1
+        ],
+        "node1PortGroup": "uplinks",
+        "node2PortGroup": "downlinks",
+        "speed": "200Gbps",
+        "status": 1,
+        "log10Ber": 1,
+        "linkFlapDelayNs": 0,
+        "delayConfig": {
+          "delayNs": 100,
+          "expDelayNs": 0
+        }
+      }
+    },
+    "fullPrefixLength": 0,
+    "name": "single_hop",
+    "switchType": 0
+  },
+  "name": "",
+  "newWorkloadSchedule": {
+    "unit": 3,
+    "method": 2,
+    "workloads": [
+      {
+        "name": "INCAST_0",
+        "workloadId": 0,
+        "numEndpoints": 2,
+        "sortRanks": true,
+        "startTimeNs": 0,
+        "maxStaggeredStartTimeNs": 0,
+        "explicitStaggeredStartTimeNs": [],
+        "config": {
+          "incast": {
+            "sizeBytes": 4096,
+            "numSources": 1,
+            "numChunks": 1,
+            "workloadMode": 1
+          }
+        },
+        "rankToId": {
+          "0": [
+            1,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "1": [
+            1,
+            0,
+            1,
+            2,
+            0,
+            0
+          ]
+        },
+        "metadata": {},
+        "rankToIdList": {
+          "0": [
+            [
+              1,
+              0,
+              1,
+              1,
+              1,
+              0
+            ]
+          ],
+          "1": [
+            [
+              1,
+              0,
+              1,
+              2,
+              1,
+              0
+            ]
+          ]
+        },
+        "qpTemplates": [
+          {
+            "ranks": {
+              "srcRank": 0,
+              "dstRank": 1
+            },
+            "nics": {
+              "srcNicIdx": 0,
+              "dstNicIdx": 0
+            },
+            "ports": {
+              "srcPorts": [
+                0
+              ],
+              "dstPorts": [
+                0
+              ]
+            }
+          },
+          {
+            "ranks": {
+              "srcRank": 1,
+              "dstRank": 0
+            },
+            "nics": {
+              "srcNicIdx": 0,
+              "dstNicIdx": 0
+            },
+            "ports": {
+              "srcPorts": [
+                0
+              ],
+              "dstPorts": [
+                0
+              ]
+            }
+          }
+        ],
+        "qpnPairMap": {},
+        "rankToNvDomain": {
+          "0": 1,
+          "1": 2
+        },
+        "nicQpnPairMap": {},
+        "qpnPortConfigs": {}
+      }
+    ],
+    "workloadNameInfos": {}
+  },
+  "includeConfigInResults": true,
+  "allowIncompleteWorkloads": false,
+  "networkLevelFeatureConfig": {
+    "enablePerMessageTracking": true
+  }
+}

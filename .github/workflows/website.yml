@@ -1,0 +1,96 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+#
+# This source code is licensed under the BSD-style license found in the
+# LICENSE file in the root directory of this source tree.
+
+# Builds the documentation site in website/ and publishes it to GitHub Pages
+# from main. A pull request builds it without publishing.
+
+name: website
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/website.yml
+      - CODE_OF_CONDUCT.md
+      - CONTRIBUTING.md
+      - LICENSE
+      - packsim/README.md
+      - packsim/transport/DESIGN.md
+      - website/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/website.yml
+      - CODE_OF_CONDUCT.md
+      - CONTRIBUTING.md
+      - LICENSE
+      - packsim/README.md
+      - packsim/transport/DESIGN.md
+      - website/**
+  # The repository going public publishes the site for the first time.
+  public:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One run per ref at a time, so an older build never deploys after a newer one.
+# A newer pull request run cancels an older one; a deploy is never cancelled
+# halfway, since that can leave Pages refusing the next one.
+concurrency:
+  group: website-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: yarn
+          cache-dependency-path: website/yarn.lock
+
+      - name: Install dependencies
+        working-directory: website
+        run: yarn install --frozen-lockfile
+
+      - name: Build website
+        working-directory: website
+        run: yarn build
+
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: website/build
+
+  deploy:
+    # Only from main in facebook/ai_simulation, and only while the repository
+    # is public, so nothing is published before it is.
+    if: >-
+      github.repository == 'facebook/ai_simulation' &&
+      github.event_name != 'pull_request' &&
+      github.ref == 'refs/heads/main' &&
+      github.event.repository.visibility == 'public'
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

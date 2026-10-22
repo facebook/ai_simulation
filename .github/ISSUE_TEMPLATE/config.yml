@@ -1,0 +1,14 @@
+# Without this file GitHub offers a "blank issue" link beside the templates, and
+# an issue opened that way never shows the security notice the bug report starts
+# with. Turning it off makes the templates the only route to a new issue, so
+# that notice is in front of everyone who files one; the contact link below is
+# the route for the one case the templates must not be used for.
+blank_issues_enabled: false
+
+contact_links:
+  - name: Security vulnerability
+    url: https://bugbounty.meta.com
+    about: >-
+      Do not open a public issue for a security bug. Meta runs a bounty program
+      for the safe disclosure of security bugs — please use that process
+      instead.

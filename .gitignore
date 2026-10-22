@@ -1,0 +1,44 @@
+# CMake writes its build tree wherever `-B` points. `_build` is the name
+# packsim/README.md and CMakeLists.txt tell you to use, and the leading
+# underscore is not decoration: `build/` is a TRACKED directory here -- it holds
+# fbcode_builder and the getdeps revision pins -- so the usual `build` would
+# mix generated output into the repository and put `getdeps.py` one
+# `rm -rf build` away from deletion.
+#
+# The glob covers the variants people reach for when they keep two
+# configurations side by side (`_build-asan`, `_build.release`).
+/_build*/
+
+# `cmake --build` can be pointed anywhere, so this catches the compilation
+# database at the root whether it was generated there or symlinked back from a
+# build tree, which is how most editors and clangd expect to find it.
+/compile_commands.json
+
+# What a run leaves behind: `packsim` writes each run's replay snapshot here,
+# keyed by the run id `packsim-replay --run_id=` takes. Nothing prunes it, so
+# it accumulates one file per run.
+/_packsim_runs/
+
+# The results `packsim` and `packsim-replay` write when `--output_file` is not
+# given: packsim_result.json and `<run-id>-result.json` respectively, the latter
+# for a run id that `packsim` generated itself (`PACKSIM_RUN_` and 16 hex
+# digits). packsim/README.md's commands run from the repository root, so a run
+# without `--output_file` leaves one of these there. Only these DEFAULT names
+# are ignored: a result the caller named, through `--output_file` or a run id of
+# their own, is a file they asked for, and where it goes is their business.
+/packsim_result.json
+/PACKSIM_RUN_????????????????-result.json
+
+# Where the CI workflow collects the binaries it uploads, via
+# `getdeps.py fixup-dyn-deps ... _artifacts/linux`. It is here rather than only
+# in CI because reproducing the workflow's steps locally is the obvious way to
+# debug a red build, and the `/_build*/` glob above does not cover it.
+/_artifacts/
+
+# What the documentation site's tooling writes into website/: the dependencies
+# `yarn install` fetches, the output of `yarn build`, the cache Docusaurus keeps
+# beside them, and the log yarn leaves when a command fails.
+/website/node_modules/
+/website/build/
+/website/.docusaurus/
+/website/yarn-error.log
