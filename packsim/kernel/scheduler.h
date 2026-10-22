@@ -19,6 +19,7 @@
 
 #include "packsim/if/gen-cpp2/switches_types.h"
 #include "packsim/kernel/device-id.h"
+#include "packsim/kernel/duration.h"
 #include "packsim/kernel/pdes/PdesEngine.h"
 #include "packsim/kernel/pdes/SimulationContext.h"
 #include "packsim/kernel/time.h"
@@ -86,12 +87,37 @@ class Scheduler {
   template <typename TFunc, typename... TArgs>
   EventHandle scheduleAfter(
       SimulationContext* ctx,
-      Time const delay,
+      const Duration delay,
       TFunc&& func,
       TArgs&&... args) {
     const uint64_t timeFs = delay.getFs() + engine_->nowFs();
     return engine_->scheduleAt(
         ctx, timeFs, std::forward<TFunc>(func), std::forward<TArgs>(args)...);
+  }
+
+  /**
+   * `scheduleAfter` with the delay held in a `Time`.
+   *
+   * @param ctx    Context that runs the event.
+   * @param delay  Offset from `timeNow()`.
+   * @param func   Callable, function pointer or member-function pointer.
+   * @param args   Arguments stored in the event and passed to `func`.
+   *
+   * @return  Handle that can cancel the event before it runs.
+   *
+   * @throw std::runtime_error as the `Duration` overload does.
+   */
+  template <typename TFunc, typename... TArgs>
+  EventHandle scheduleAfter(
+      SimulationContext* ctx,
+      Time const delay,
+      TFunc&& func,
+      TArgs&&... args) {
+    return scheduleAfter(
+        ctx,
+        Duration(delay.getFs()),
+        std::forward<TFunc>(func),
+        std::forward<TArgs>(args)...);
   }
 
   uint64_t getTotalEvents();

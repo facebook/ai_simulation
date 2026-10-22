@@ -11,6 +11,7 @@
 
 #include <gtest/gtest.h>
 
+#include "packsim/kernel/duration.h"
 #include "packsim/kernel/scheduler.h"
 #include "packsim/kernel/sim-context.h"
 #include "packsim/kernel/time.h"
@@ -99,6 +100,24 @@ TEST_F(SimContextTest, ScheduleAddsDelayToCurrentSimTime) {
   ctx.schedule(Time::fromNs(5), [&ctx, &innerFs]() {
     ctx.schedule(
         Time::fromNs(30), [&ctx, &innerFs]() { innerFs = ctx.now().getFs(); });
+  });
+
+  // Act.
+  scheduler_.run();
+
+  // Assert.
+  EXPECT_EQ(innerFs, 35'000'000u);
+}
+
+TEST_F(SimContextTest, ScheduleDurationAddsDelayToCurrentSimTime) {
+  // Arrange: as above, through the Duration overload.
+  SimContext ctx(&scheduler_, "duration-delay-ctx");
+  uint64_t innerFs = 0;
+
+  ctx.schedule(Duration::fromNs(5), [&ctx, &innerFs]() {
+    ctx.schedule(Duration::fromNs(30), [&ctx, &innerFs]() {
+      innerFs = ctx.now().getFs();
+    });
   });
 
   // Act.

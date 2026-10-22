@@ -21,5 +21,10 @@ on `main` has the detail.
 - A documentation site, rendered from `packsim/README.md` and
   `packsim/transport/DESIGN.md` and published with GitHub Pages.
 - The BSD 3-Clause License, in `LICENSE`.
+- `Duration`, a span of simulated time, in `packsim/kernel/duration.h`. It and
+  `Time` do not convert to each other, so a function that takes a `Duration`
+  rejects a `Time`, and the reverse. `Scheduler::scheduleAfter` and
+  `SimContext::schedule` also accept a `Duration` delay; their `Time` overloads
+  stay.
 
 [Unreleased]: https://github.com/facebook/ai_simulation/commits/main

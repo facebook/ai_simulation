@@ -12,6 +12,7 @@
 
 #include <folly/CppAttributes.h>
 
+#include "packsim/kernel/duration.h"
 #include "packsim/kernel/pdes/SimulationContext.h"
 #include "packsim/kernel/random.h"
 #include "packsim/kernel/scheduler.h"
@@ -68,9 +69,29 @@ struct SimContext : public ::packsim::pdes::SimulationContext {
    */
   template <typename TFunc, typename... TArgs>
   Scheduler::EventHandle
-  schedule(Time const& delay, TFunc&& func, TArgs&&... args) {
+  schedule(const Duration delay, TFunc&& func, TArgs&&... args) {
     return scheduler_->scheduleAfter(
         this, delay, std::forward<TFunc>(func), std::forward<TArgs>(args)...);
+  }
+
+  /**
+   * `schedule` with the delay held in a `Time`.
+   *
+   * @param delay  Offset from `Scheduler::timeNow()`.
+   * @param func   Callable, function pointer or member-function pointer.
+   * @param args   Arguments stored in the event and passed to `func`.
+   *
+   * @return  Handle that can cancel the event before it runs.
+   *
+   * @throw std::runtime_error as the `Duration` overload does.
+   */
+  template <typename TFunc, typename... TArgs>
+  Scheduler::EventHandle
+  schedule(Time const& delay, TFunc&& func, TArgs&&... args) {
+    return schedule(
+        Duration(delay.getFs()),
+        std::forward<TFunc>(func),
+        std::forward<TArgs>(args)...);
   }
 
   /**
