@@ -60,7 +60,7 @@ class IncastRank : public WorkloadRank {
     return isPushMode() && isSender();
   }
   uint64_t minSendTimeNs_{};
-  uint32_t sendSize_;
+  uint64_t sendSize_;
   uint32_t numChunks_;
   uint32_t numSrcs_;
   // @oss-disable

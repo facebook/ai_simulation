@@ -119,6 +119,45 @@ INSTANTIATE_TEST_SUITE_P(
         std::make_tuple(8U, 0U),
         std::make_tuple(8U, 5U)));
 
+class IncastMessageSizeTest : public packsim::WorkloadRankTestHarness,
+                              public ::testing::Test {
+ protected:
+  // 4 GiB, one more than the largest uint32_t.
+  static constexpr uint64_t kSizeBytes = uint64_t{1} << 32;
+
+  // Two ranks: rank 1 sends rank 0 kSizeBytes in numChunks messages.
+  void configure(const uint32_t numChunks) {
+    workCfg_.name() = "IncastMessageSize";
+    workCfg_.workloadId() = 0;
+    workCfg_.numEndpoints() = 2;
+
+    auto incast = packsim::workload::thrift::Incast();
+    incast.sizeBytes() = kSizeBytes;
+    incast.numChunks() = numChunks;
+    workCfg_.config()->incast() = incast;
+  }
+};
+
+// 4 GiB does not fit in 32 bits, but each of its 16 messages of 256 MiB does.
+TEST_F(IncastMessageSizeTest, SendsASizeThatDoesNotFitUint32InSmallerMessages) {
+  configure(/*numChunks=*/16);
+
+  run();
+
+  validateStats();
+  EXPECT_EQ(rankStats_.at(0).rcvdBytes, kSizeBytes);
+  EXPECT_EQ(rankStats_.at(0).rcvdMsgs, 16u);
+}
+
+// A message size is a uint32_t, so one message cannot carry 4 GiB.
+TEST_F(IncastMessageSizeTest, ThrowsWhenMessageSizeDoesNotFitUint32) {
+  configure(/*numChunks=*/1);
+
+  EXPECT_THAT(
+      [&]() { run(); },
+      ThrowsMessage<std::runtime_error>(HasSubstr("ceilDivide32 overflowed")));
+}
+
 /**
  * Unit tests for IncastRank's PUSH (one-sided WRITE) mode that exercise the
  * rank in isolation without the multi-rank simulation harness. These cover:

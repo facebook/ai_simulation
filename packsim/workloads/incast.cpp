@@ -12,9 +12,9 @@
 #include <stdexcept>
 
 #include <fmt/format.h>
-#include <folly/Conv.h>
-#include <folly/Math.h>
 #include <thrift/lib/cpp/util/EnumUtils.h>
+
+#include "packsim/kernel/ceil-divide.h"
 
 namespace packsim {
 
@@ -29,7 +29,7 @@ IncastRank::IncastRank(const WorkloadRankParams& params)
       [this](Message* msg) { requestReceived(msg); });
 
   const auto& incastCfg = *workCfg_->config()->incast();
-  sendSize_ = folly::to<uint32_t>(*incastCfg.sizeBytes());
+  sendSize_ = *incastCfg.sizeBytes();
   numChunks_ = *incastCfg.numChunks();
   requirePositiveField("Incast", "numChunks", numChunks_);
   numSrcs_ = resolveNumSources(*workCfg_);
@@ -105,15 +105,16 @@ void IncastRank::run() {
   }
 
   // Post recvs at rank 0
-  const uint32_t maxMsgSize = folly::divCeil(sendSize_, numChunks_);
+  const uint32_t maxMsgSize = ceilDivide32(sendSize_, numChunks_);
   recvMsgs_.resize(numRanks_);
   for (uint32_t srcRank = 1; srcRank < numSrcs_ + 1; srcRank++) {
     const auto numQps = getTotalDataQPCount(srcRank);
-    uint32_t rem = sendSize_;
+    uint64_t rem = sendSize_;
     uint32_t qpNumToUse = 0;
     // @oss-disable
     for (uint32_t i = 0; i < numChunks_; i++) {
-      const auto msgSize = std::min(rem, maxMsgSize);
+      const uint32_t msgSize =
+          rem < maxMsgSize ? static_cast<uint32_t>(rem) : maxMsgSize;
       rem -= msgSize;
       if (isNicAwareModeActive() && numQps > 0) {
         // @oss-disable
@@ -158,12 +159,13 @@ void IncastRank::progress() {
 void IncastRank::sendMsgs() {
   const auto numQps = getTotalDataQPCount(kIncastDestinationRank);
   const bool useOneSided = isPushMode();
-  uint32_t rem = sendSize_;
-  const uint32_t maxMsgSize = folly::divCeil(sendSize_, numChunks_);
+  uint64_t rem = sendSize_;
+  const uint32_t maxMsgSize = ceilDivide32(sendSize_, numChunks_);
   uint32_t qpNumToUse = 0;
   // @oss-disable
   for (uint32_t chunkId = 0; chunkId < numChunks_; chunkId++) {
-    const auto msgSize = std::min(rem, maxMsgSize);
+    const uint32_t msgSize =
+        rem < maxMsgSize ? static_cast<uint32_t>(rem) : maxMsgSize;
     rem -= msgSize;
     if (isNicAwareModeActive() && numQps > 0) {
       // @oss-disable
@@ -262,7 +264,7 @@ uint64_t IncastRank::getExpectedBytes() {
     return isPushSender() ? sendSize_ : 0;
   }
   if (rank_ == kIncastDestinationRank) {
-    return uint64_t{sendSize_} * numSrcs_;
+    return sendSize_ * numSrcs_;
   }
   // A SENDRCV sender receives only rank 0's notify.
   return isSender() ? kNotifyMsgSize : 0;
