@@ -37,7 +37,7 @@ The simulator core, its Thrift schemas, and its unit tests:
 | `validations/` | Config validators |
 | `if/` | Thrift IDL for the config and result schemas |
 | `util/` | Shared helpers, config builders, I/O |
-| `examples/` | A runnable simulation config to point the binary at |
+| `examples/` | A runnable simulation config to point the binary at, and the Python script that writes it |
 
 Unit tests live in `oss_tests/` directories beside the code they cover. Three
 end-to-end tests, which run `examples/incast-2host.json` and replay it, are
@@ -96,8 +96,9 @@ The omissions are deliberate, not accidental:
   as a whole, under its own name, and when `SwitchConfig.useEgress` is set
   `Switch.egressBuffers` holds the egress buffers' queues.
 - **No Python layer.** Result analysis, notebooks and the plotting library are
-  not included. Results written in Thrift's Compact (`.cf`) or Binary (`.bin`)
-  protocol can be read by any binding fbthrift generates from
+  not included; the one Python file, `examples/make_example_config.py`, writes
+  the example config. Results written in Thrift's Compact (`.cf`) or Binary
+  (`.bin`) protocol can be read by any binding fbthrift generates from
   `if/results.thrift`; the schema uses fbthrift's structured annotations, which
   other Thrift compilers do not accept.
   JSON results are standard JSON in the shape of Thrift's Simple JSON protocol,
@@ -437,6 +438,17 @@ starts. It reports a link that a node's `linkIds` or a route names but
 omission in the list passes it and shows up only when the simulation runs: as
 an exception at startup, when traffic first needs the missing piece, or at the
 end when a rank has not completed; or as a device that sends nothing.
+
+**Generate configs from Python.** `examples/make_example_config.py` is the
+script that writes `examples/incast-2host.json`. It builds the config from plain
+dicts and lists, a function for each struct, and needs nothing beyond Python's
+standard library, so a copy of it is a starting point for configs of your own.
+With no options it rewrites the example; `--output` writes the config
+elsewhere. From the repository root:
+
+```sh
+python3 packsim/examples/make_example_config.py --output my-config.json
+```
 
 **Generate configs from C++.** For a larger fabric, write a program against
 `util/builders.h` and `util/config-builders.h`, which several of the unit tests

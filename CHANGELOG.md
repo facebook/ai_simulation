@@ -29,5 +29,8 @@ on `main` has the detail.
 - `Scheduler::runUntil(Time)`, which runs the simulation up to a point in time.
   `Scheduler::run(Time)` runs for a span, and its zero runs until no events are
   left; `runUntil` at the current time runs nothing.
+- `packsim/examples/make_example_config.py`, the Python script that writes
+  `packsim/examples/incast-2host.json`, using nothing beyond the standard
+  library.
 
 [Unreleased]: https://github.com/facebook/ai_simulation/commits/main
