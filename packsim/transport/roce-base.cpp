@@ -103,7 +103,7 @@ RoceTransportConfig RoceTransportConfig::fromThrift(
     case TransportType::roceV2: {
       // Each concern is selected independently by its own sub-union; an unset
       // arm is a config error.
-      const auto& roceThriftConfig = transport.get_roceV2();
+      const auto& roceThriftConfig = transport.roceV2().value();
       switch (roceThriftConfig.congestionControl()->getType()) {
         case CcType::dummy:
           break;
@@ -119,7 +119,8 @@ RoceTransportConfig RoceTransportConfig::fromThrift(
           break;
         case LrType::goBackN: {
           config.errorRecovery = ErrorRecovery::GO_BACK_N;
-          const auto& goBackN = roceThriftConfig.lossRecovery()->get_goBackN();
+          const auto& goBackN =
+              roceThriftConfig.lossRecovery()->goBackN().value();
           config.rnrTimeIdx = *goBackN.rnrTimeIdx();
           config.selectiveGapRepair = *goBackN.selectiveGapRepair();
           break;

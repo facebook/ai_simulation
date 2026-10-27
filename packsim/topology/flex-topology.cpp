@@ -305,13 +305,12 @@ GoBackNAckKind getGoBackNAckKind(
   if (transport.getType() != packsim::thrift::TransportConfig::Type::roceV2) {
     return GoBackNAckKind::NOT_GO_BACK_N;
   }
-  const auto& lossRecovery = *transport.get_roceV2().lossRecovery();
+  const auto& lossRecovery = *transport.roceV2()->lossRecovery();
   if (lossRecovery.getType() !=
       packsim::thrift::RoceV2LossRecoveryConfig::Type::goBackN) {
     return GoBackNAckKind::NOT_GO_BACK_N;
   }
-  const bool selectiveGapRepair =
-      *lossRecovery.get_goBackN().selectiveGapRepair();
+  const bool selectiveGapRepair = *lossRecovery.goBackN()->selectiveGapRepair();
   return *nic.outofOrderPktSupport() && !selectiveGapRepair
       ? GoBackNAckKind::ACCEPTS_EVERY_PSN
       : GoBackNAckKind::CUMULATIVE;

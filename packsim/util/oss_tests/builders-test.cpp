@@ -44,7 +44,7 @@ void expectRoceSelection(
   });
   const auto& transportConfig = *sim.nicConfigMap()->at("default").transport();
   ASSERT_EQ(transportConfig.getType(), TransportType::roceV2);
-  const auto& roceConfig = transportConfig.get_roceV2();
+  const auto& roceConfig = transportConfig.roceV2().value();
   EXPECT_EQ(
       roceConfig.congestionControl()->getType(), expectedCongestionControl);
   EXPECT_EQ(roceConfig.lossRecovery()->getType(), expectedLossRecovery);
@@ -231,7 +231,7 @@ TEST_F(BuildFourZoneClosWorkloadSim, ForwardsRoceAlgorithms) {
 
   const auto& transportConfig = *sim.nicConfigMap()->at("default").transport();
   ASSERT_EQ(transportConfig.getType(), TransportType::roceV2);
-  const auto& roceConfig = transportConfig.get_roceV2();
+  const auto& roceConfig = transportConfig.roceV2().value();
   EXPECT_EQ(
       roceConfig.congestionControl()->getType(), CongestionControlType::dcqcn);
   EXPECT_EQ(roceConfig.lossRecovery()->getType(), LossRecoveryType::goBackN);

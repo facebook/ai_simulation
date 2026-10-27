@@ -274,7 +274,7 @@ TEST_F(GoBackNRoceTest, SendMessageLossy) {
   const auto& transportStats = *summary.nicStats()->transport();
   ASSERT_EQ(
       transportStats.getType(), packsim::thrift::TransportStats::Type::roceV2);
-  const auto& roceV2Stats = transportStats.get_roceV2();
+  const auto& roceV2Stats = transportStats.roceV2().value();
   EXPECT_GT(*roceV2Stats.retxPkts(), 0u);
   EXPECT_GT(*roceV2Stats.retxBytes(), 0u);
   EXPECT_EQ(*roceV2Stats.retxByTimer(), 0u);
@@ -292,7 +292,7 @@ TEST_F(GoBackNRoceTest, RecoversDroppedTailDataPacket) {
   const auto& transportStats = *summary.nicStats()->transport();
   ASSERT_EQ(
       transportStats.getType(), packsim::thrift::TransportStats::Type::roceV2);
-  const auto& roceV2Stats = transportStats.get_roceV2();
+  const auto& roceV2Stats = transportStats.roceV2().value();
   EXPECT_GT(*roceV2Stats.retxByTimer(), 0u);
   EXPECT_EQ(*roceV2Stats.retxByNack(), 0u);
   EXPECT_EQ(*roceV2Stats.retxPkts(), *roceV2Stats.retxByTimer());
@@ -307,7 +307,7 @@ TEST_F(GoBackNRoceTest, RecoversDroppedFinalAck) {
   const auto& transportStats = *summary.nicStats()->transport();
   ASSERT_EQ(
       transportStats.getType(), packsim::thrift::TransportStats::Type::roceV2);
-  const auto& roceV2Stats = transportStats.get_roceV2();
+  const auto& roceV2Stats = transportStats.roceV2().value();
   EXPECT_GT(*roceV2Stats.retxByTimer(), 0u);
   EXPECT_EQ(*roceV2Stats.retxByNack(), 0u);
   EXPECT_EQ(*roceV2Stats.retxPkts(), *roceV2Stats.retxByTimer());
@@ -326,7 +326,7 @@ TEST_F(GoBackNTwoMessageRoceTest, LaterAckCompletesMessageWhoseAckWasLost) {
   const auto& transportStats = *summary.nicStats()->transport();
   ASSERT_EQ(
       transportStats.getType(), packsim::thrift::TransportStats::Type::roceV2);
-  EXPECT_EQ(*transportStats.get_roceV2().retxPkts(), 0u);
+  EXPECT_EQ(*transportStats.roceV2().value().retxPkts(), 0u);
 }
 
 TEST_F(GoBackNOooRoceTest, DroppedFinalAckArmsNoRetransmitTimer) {
@@ -342,7 +342,7 @@ TEST_F(GoBackNOooRoceTest, DroppedFinalAckArmsNoRetransmitTimer) {
   const auto& transportStats = *summary.nicStats()->transport();
   ASSERT_EQ(
       transportStats.getType(), packsim::thrift::TransportStats::Type::roceV2);
-  EXPECT_EQ(*transportStats.get_roceV2().retxPkts(), 0u);
+  EXPECT_EQ(*transportStats.roceV2().value().retxPkts(), 0u);
 }
 
 // With selective gap repair off, no gap NACK or retransmit timer resends the
@@ -363,7 +363,7 @@ TEST_F(GoBackNOooRoceTest, DroppedMiddlePacketIsNeverRetransmitted) {
   const auto& transportStats = *summary.nicStats()->transport();
   ASSERT_EQ(
       transportStats.getType(), packsim::thrift::TransportStats::Type::roceV2);
-  EXPECT_EQ(*transportStats.get_roceV2().retxPkts(), 0u);
+  EXPECT_EQ(*transportStats.roceV2().value().retxPkts(), 0u);
 }
 
 TEST_F(GoBackNDcqcnRoceTest, SendMessageLossy) {
@@ -385,7 +385,7 @@ TEST_F(GoBackNDcqcnOooRoceTest, RecoversDroppedTailDataPacket) {
   const auto& transportStats = *summary.nicStats()->transport();
   ASSERT_EQ(
       transportStats.getType(), packsim::thrift::TransportStats::Type::roceV2);
-  const auto& roceV2Stats = transportStats.get_roceV2();
+  const auto& roceV2Stats = transportStats.roceV2().value();
   EXPECT_GT(*roceV2Stats.retxByTimer(), 0u);
   EXPECT_EQ(*roceV2Stats.retxByNack(), 0u);
   EXPECT_EQ(*roceV2Stats.retxPkts(), *roceV2Stats.retxByTimer());
