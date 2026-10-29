@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <cmath>
 #include <cstddef>
 #include <cstdint>
 #include <functional>
@@ -14,6 +15,7 @@
 #include <mutex>
 #include <optional>
 #include <set>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 #include <tuple>
@@ -231,13 +233,26 @@ struct TransportParams {
 
 class Transport {
  public:
+  /**
+   * @param simCtx     Simulation context the transport schedules on.
+   * @param id         Address of the NIC this transport runs on.
+   * @param nicConfig  The NIC's configuration; it must outlive the transport.
+   *
+   * @throw std::invalid_argument  NicConfig.writeLatencyNs is set and is
+   *                               negative or not finite.
+   */
   explicit Transport(
       SimContext* simCtx,
       const FlexDeviceId& id,
       const packsim::thrift::NicConfig* nicConfig)
       : simCtx_(simCtx), id_(id), nicConfig_(nicConfig) {
+    const double memoryBytesPerNs = *nicConfig_->readGbps() / 8.0;
+    const double readLatencyNs = *nicConfig_->readLatencyNs();
     memory_ = std::make_unique<SimpleMemory>(
-        *nicConfig_->readGbps() / 8.0, *nicConfig_->readLatencyNs());
+        memoryBytesPerNs,
+        memoryBytesPerNs,
+        readLatencyNs,
+        getValidatedWriteLatencyNs(*nicConfig_).value_or(readLatencyNs));
     nicBps_ = DataRate(*nicConfig_->speed()).getBps();
   }
   virtual ~Transport() = default;
@@ -440,8 +455,8 @@ class Transport {
    * asks writeBytesToMemory() can hold a packet until its payload write
    * completes. A write of at least one byte whose address the transport knows
    * takes this function's latency, a write of zero bytes takes no fixed
-   * latency, and any other write takes NicConfig.readLatencyNs, which also
-   * sets the write latency.
+   * latency, and any other write takes the NIC's write latency:
+   * NicConfig.writeLatencyNs, or NicConfig.readLatencyNs when that is unset.
    *
    * @param fn  Fixed latency of one write, by address and size.
    */
@@ -459,24 +474,29 @@ class Transport {
    *                   the caller knows it.
    *
    * @return           Delay in nanoseconds until the write completes, or
-   *                   std::nullopt when no write latency function is set:
-   *                   then nothing is reserved and the payload counts as
-   *                   written on arrival. Writes complete in the order they are
-   *                   reserved.
+   *                   std::nullopt when neither a write latency function nor
+   *                   NicConfig.writeLatencyNs is set: then nothing is
+   *                   reserved and the payload counts as written on arrival.
+   *                   A write of at least one byte takes the function's latency
+   *                   when there is one and the address is known, and the
+   *                   NIC's write latency otherwise. Writes complete in the
+   *                   order they are reserved.
    */
   [[nodiscard]] std::optional<uint64_t> writeBytesToMemory(
       size_t bytes,
       std::optional<uint64_t> localAddr) {
-    // Receive-side writes are charged only on request; without a function a
-    // transport treats every payload as written when it arrives.
-    if (!getPayloadWriteLatencyNsFn_) {
+    // Receive-side writes are charged only on request; without a function or a
+    // configured write latency a transport treats every payload as written
+    // when it arrives.
+    if (!getPayloadWriteLatencyNsFn_ &&
+        !nicConfig_->writeLatencyNs().has_value()) {
       return std::nullopt;
     }
     auto* mem = sharedMemory_ ? sharedMemory_ : memory_.get();
     if (bytes == 0) {
       return mem->getWriteDelayNs(0, simCtx_->nowNs(), /* latencyNs= */ 0.0);
     }
-    if (!localAddr.has_value()) {
+    if (!localAddr.has_value() || !getPayloadWriteLatencyNsFn_) {
       return mem->getWriteDelayNs(bytes, simCtx_->nowNs());
     }
     return mem->getWriteDelayNs(
@@ -614,6 +634,29 @@ class Transport {
   }
 
   GetPayloadWriteLatencyNsFn getPayloadWriteLatencyNsFn_;
+
+  /**
+   * Read NicConfig.writeLatencyNs.
+   *
+   * @param nicConfig  This NIC's configuration.
+   *
+   * @return           The configured write latency in ns, or std::nullopt when
+   *                   the field is unset.
+   * @throw std::invalid_argument  The value is negative or not finite.
+   */
+  static std::optional<double> getValidatedWriteLatencyNs(
+      const packsim::thrift::NicConfig& nicConfig) {
+    const std::optional<double> latencyNs =
+        nicConfig.writeLatencyNs().to_optional();
+    if (latencyNs.has_value() &&
+        (!std::isfinite(*latencyNs) || *latencyNs < 0)) {
+      throw std::invalid_argument(
+          fmt::format(
+              "NicConfig.writeLatencyNs must be finite and not negative, got {}",
+              *latencyNs));
+    }
+    return latencyNs;
+  }
 
   // Send a packet through the function the owner registered. Nothing invokes
   // sendPacketFn_ directly; this is its only reader and it asserts the owner

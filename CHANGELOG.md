@@ -10,6 +10,11 @@ on `main` has the detail.
 
 ### Added
 
+- `NicConfig.writeLatencyNs` in `packsim/if/nic_config.thrift`: the fixed
+  latency of a NIC writing a received payload into its memory, for a transport
+  that holds each received packet until its payload is written. Unset, nothing
+  changes. RoCEv2 never charges it: a valid value has no effect with it, and a
+  negative or non-finite one is rejected when the transport is built.
 - PackSim, a packet-level, discrete-event simulator for AI training fabrics. It
   models endpoints and their NICs, RoCEv2 transport with Go-Back-N loss
   recovery and DCQCN congestion control, switches and their buffers, and links

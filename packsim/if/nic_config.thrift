@@ -130,6 +130,17 @@ struct NicConfig {
   // available to all ports, e.g. 400 for a 4x100G NIC.
   2: double readGbps = 100.0;
   3: double readLatencyNs = 500.0;
+  // Fixed latency in ns of the NIC writing a received payload into its memory;
+  // finite and not negative. Set, the NIC charges every received payload write:
+  // a transport that holds each received data packet until its payload is
+  // written holds it for at least this latency plus the write's bandwidth term
+  // at readGbps, and only then acks it. A per-address write latency installed
+  // by the transport's owner takes precedence for a write whose address the
+  // transport knows. Unset, a payload counts as written on arrival unless such
+  // a function is installed, and a write the function does not cover takes
+  // readLatencyNs. No effect with RoCEv2, which never charges it.
+  // @oss-disable
+  180: optional double writeLatencyNs;
   4: i64 maxQpDepth = -1;
   // No effect with RoCEv2, which ignores QpnPortConfig
   // (if/qp_pair_config.thrift). Where a QP's QpnPortConfig is used, true drops
