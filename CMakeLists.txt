@@ -167,8 +167,8 @@ find_package(magic_enum CONFIG REQUIRED)
 # true at the link step as well.
 find_package(FBThrift REQUIRED)
 # FBThriftConfig.cmake reports a missing compiler as a NOTFOUND value rather than
-# failing, and ThriftLibrary.cmake then falls back to a bare `thrift` on PATH, so
-# the build would get as far as the first codegen step before stopping.
+# failing, so the build would get as far as the first codegen step before
+# stopping.
 if(NOT FBTHRIFT_COMPILER)
   message(FATAL_ERROR
     "fbthrift was found without its compiler (FBTHRIFT_COMPILER="
@@ -200,9 +200,12 @@ set_property(DIRECTORY APPEND PROPERTY
 if("${FBTHRIFT_COMPILER}" IS_NEWER_THAN "${THRIFT_COMPILER}")
   file(TOUCH "${THRIFT_COMPILER}")
 endif()
-# ThriftLibrary.cmake ships alongside the fbthrift headers.
-list(APPEND CMAKE_MODULE_PATH "${FBTHRIFT_INCLUDE_DIR}/thrift")
-include(ThriftLibrary)
+# find_package(FBThrift) provides thrift_generate. The fbthrift the export pins
+# doesn't, and installs ThriftLibrary.cmake next to its headers instead.
+if(NOT COMMAND thrift_generate)
+  list(APPEND CMAKE_MODULE_PATH "${FBTHRIFT_INCLUDE_DIR}/thrift")
+  include(ThriftLibrary)
+endif()
 
 # ---------------------------------------------------------------------------
 # Thrift codegen
@@ -232,7 +235,7 @@ set(PACKSIM_THRIFT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/packsim/if")
 set(PACKSIM_THRIFT_OUT "${PACKSIM_GENERATED_ROOT}/packsim/if")
 
 # thrift1 refuses to create its own output directory ("Output path ... is
-# unusable or not a directory") and ThriftLibrary.cmake does not create it
+# unusable or not a directory") and thrift_generate does not create it
 # either, so every generator step fails on a clean build tree without this.
 file(MAKE_DIRECTORY "${PACKSIM_THRIFT_OUT}")
 
