@@ -280,8 +280,10 @@ endif()
 
 # fbthrift from before October 15, 2026 has only the positional
 # `thrift_generate`, wrapped by `thrift_object`, and the fbthrift revision the
-# export pins is one of those. Drop the `thrift_object` branch once the pin
-# moves past it.
+# export pins is one of those. The other branch takes the target first, as
+# fbthrift requires since the change that made it the first argument; the
+# file-first form in between is not supported. Drop the `thrift_object` branch
+# once the pin moves past it.
 foreach(thrift_base IN LISTS PACKSIM_THRIFT_FILES)
   if(COMMAND thrift_object)
     thrift_object(
@@ -297,11 +299,12 @@ foreach(thrift_base IN LISTS PACKSIM_THRIFT_FILES)
         "${FBTHRIFT_INCLUDE_DIR}"
     )
   else()
+    add_library("${thrift_base}-cpp2-obj" OBJECT)
     thrift_generate(
+      "${thrift_base}-cpp2-obj"
       "${PACKSIM_THRIFT_DIR}/${thrift_base}.thrift"
       LANGUAGE cpp2
       OPTIONS json
-      OUT_SOURCES "${thrift_base}-cpp2-SOURCES"
       INCLUDE_DIRECTORIES
         # Resolves `include "packsim/if/<other>.thrift"`.
         "${CMAKE_CURRENT_SOURCE_DIR}"
@@ -312,7 +315,8 @@ foreach(thrift_base IN LISTS PACKSIM_THRIFT_FILES)
       OUTPUT_DIRECTORY "${PACKSIM_THRIFT_OUT}"
       INCLUDE_PREFIX "packsim/if"
     )
-    add_library("${thrift_base}-cpp2-obj" OBJECT ${${thrift_base}-cpp2-SOURCES})
+    get_target_property("${thrift_base}-cpp2-SOURCES" "${thrift_base}-cpp2-obj"
+      SOURCES)
   endif()
 endforeach()
 
