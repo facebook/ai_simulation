@@ -28,6 +28,28 @@ should be left alone; CONTRIBUTING.md explains them.
 Participants are expected to follow our
 [Code of Conduct](CODE_OF_CONDUCT.md).
 
+## Citing
+
+Each project in this repository has its own citation.
+
+### PackSim
+
+If you use PackSim in your research, don't forget to cite us!
+
+```bibtex
+@misc{noormohammadpour2026packsim,
+  author       = {Noormohammadpour, Max and Du, Yong and Zhang, Yuhui and
+                  Costello, Kevin and Spring, Neil and Lou, Mike and
+                  Wang, Zhaodong and Cai, Yan and Larkin, Pavel and
+                  Steinbrecher, Greg and Ahuja, Satyajeet Singh and
+                  Nayak, Mahesh and Patel, Prasoon and Zhang, Ying},
+  title        = {{PackSim}: A Packet-Level, Discrete-Event Simulator for
+                  {AI} Training Fabrics},
+  year         = {2026},
+  howpublished = {\url{https://github.com/meta/ai_simulation/tree/main/packsim}}
+}
+```
+
 ## License
 
 PackSim is licensed under the BSD 3-Clause License, as found in the
